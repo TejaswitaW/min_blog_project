@@ -1,0 +1,1 @@
+# min_blog_project
