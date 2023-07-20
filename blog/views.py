@@ -1,4 +1,6 @@
 from django.shortcuts import render,HttpResponseRedirect
+from .forms import UserSignUpForm
+
 
 # Create your views here.
 def home(request):
@@ -14,7 +16,8 @@ def dashboard(request):
     return render(request,'blog/dashboard.html')
 
 def sign_up(request):
-    return render(request,'blog/signup.html')
+    form = UserSignUpForm()
+    return render(request,'blog/signup.html',{'form':form})
 
 def user_login(request):
     return render(request,'blog/login.html')
