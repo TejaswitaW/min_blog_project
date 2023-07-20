@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponseRedirect
-from .forms import UserSignUpForm
+from .forms import UserSignUpForm,UserLoginForm
 
 
 # Create your views here.
@@ -20,7 +20,8 @@ def sign_up(request):
     return render(request,'blog/signup.html',{'form':form})
 
 def user_login(request):
-    return render(request,'blog/login.html')
+    form = UserLoginForm()
+    return render(request,'blog/login.html',{'form':form})
 
 def user_logout(request):
     return HttpResponseRedirect('/')
