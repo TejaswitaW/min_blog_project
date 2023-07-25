@@ -1,5 +1,6 @@
 from django.shortcuts import render,HttpResponseRedirect
 from .forms import UserSignUpForm,UserLoginForm
+from django.contrib import messages
 
 
 # Create your views here.
@@ -16,7 +17,13 @@ def dashboard(request):
     return render(request,'blog/dashboard.html')
 
 def sign_up(request):
-    form = UserSignUpForm()
+    if request.method == 'POST':
+        form = UserSignUpForm(request.POST)
+        if form.is_valid():
+            messages.success(request,"Congratulations!!! You have become an Author.")
+            form.save()
+    else:
+        form = UserSignUpForm()
     return render(request,'blog/signup.html',{'form':form})
 
 def user_login(request):
