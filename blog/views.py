@@ -2,11 +2,13 @@ from django.shortcuts import render,HttpResponseRedirect
 from .forms import UserSignUpForm,UserLoginForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+from .models import Post
 
 
 # Create your views here.
 def home(request):
-    return render(request,'blog/home.html')
+    posts = Post.objects.all()
+    return render(request,'blog/home.html',{'posts':posts})
 
 def about(request):
     return render(request,'blog/about.html')
