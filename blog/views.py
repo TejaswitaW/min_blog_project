@@ -17,7 +17,11 @@ def contact(request):
     return render(request,'blog/contact.html')
 
 def dashboard(request):
-    return render(request,'blog/dashboard.html')
+    if request.user.is_authenticated:
+        posts = Post.objects.all()
+        return render(request,'blog/dashboard.html',{'posts':posts})
+    else:
+        return HttpResponseRedirect('/login/')
 
 def sign_up(request):
     if request.method == 'POST':
