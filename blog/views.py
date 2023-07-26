@@ -2,6 +2,7 @@ from django.shortcuts import render,HttpResponseRedirect
 from .forms import UserSignUpForm,UserLoginForm,PostForm
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.models import Group
 from .models import Post
 
 
@@ -28,7 +29,9 @@ def sign_up(request):
         form = UserSignUpForm(request.POST)
         if form.is_valid():
             messages.success(request,"Congratulations!!! You have become an Author.")
-            form.save()
+            user = form.save()
+            group = Group.objects.get(name='Author')
+            user.groups.add(group)
     else:
         form = UserSignUpForm()
     return render(request,'blog/signup.html',{'form':form})
