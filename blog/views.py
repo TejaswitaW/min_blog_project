@@ -88,6 +88,9 @@ def update_post(request,id):
     
 def delete_post(request,id):
     if request.user.is_authenticated:
+       if request.method == 'POST':
+           pi = Post.objects.get(pk=id)
+           pi.delete()
        return HttpResponseRedirect('/dashboard/')
             
     else:
